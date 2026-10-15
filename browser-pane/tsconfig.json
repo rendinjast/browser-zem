@@ -7,12 +7,15 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "skipDefaultLibCheck": true,
     "declaration": true,
     "declarationDir": "./dist",
     "outDir": "./dist",
     "rootDir": "./src",
-    "composite": false
+    "moduleDetection": "force",
+    "noEmitOnError": false
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
