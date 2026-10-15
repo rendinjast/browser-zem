@@ -10,9 +10,9 @@ importers:
 
   browser-pane:
     dependencies:
-      '@zem/pane':
-        specifier: workspace:*
-        version: link:../pane
+      '@zem-sh/pane':
+        specifier: ^0.1.0
+        version: 0.1.0(react@19.3.0)
       lucide-react:
         specifier: ^1.16.0
         version: 1.57.0(@types/react@19.3.0)(react@19.3.0)
@@ -661,6 +661,19 @@ packages:
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+
+  '@zem-sh/keybinding@0.1.0':
+    resolution: {integrity: sha512-DxgCQx6B/9SNDrkJ8Mg5lE/TS58Fsq209gsE+yJ3ZIB1tYP8pulruEPAyYTpitfa66CS/GotJE3PrP9AzYe2SA==}
+    peerDependencies:
+      react: '>=18'
+    peerDependenciesMeta:
+      react:
+        optional: true
+
+  '@zem-sh/pane@0.1.0':
+    resolution: {integrity: sha512-M9kPj35ONHIdFvdRowgzrifY9MnMq4yY+1RKjeo8mjcA5jc2X8TZWzZwk/rsSMZtt2s1bVD/NeCsFGKgTs7WQA==}
+    peerDependencies:
+      react: ^19.1.0
 
   baseline-browser-mapping@2.11.28:
     resolution: {integrity: sha512-br0LOmjJqr6Rt4AEkadbcNf67Zpo7EPwKsWbjnRrJIa1QYFHQBqM4C7F2WTbV8ahTEcg1Eo+Y0aWjjORInYFyA==}
@@ -1418,6 +1431,15 @@ snapshots:
       vite: 7.3.7(jiti@2.7.0)(lightningcss@1.32.0)
     transitivePeerDependencies:
       - supports-color
+
+  '@zem-sh/keybinding@0.1.0(react@19.3.0)':
+    optionalDependencies:
+      react: 19.3.0
+
+  '@zem-sh/pane@0.1.0(react@19.3.0)':
+    dependencies:
+      '@zem-sh/keybinding': 0.1.0(react@19.3.0)
+      react: 19.3.0
 
   baseline-browser-mapping@2.11.28: {}
 

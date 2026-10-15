@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { type PaneComponentProps } from '@zem/pane'
+import { type PaneComponentProps } from '@zem-sh/pane'
 import { cn } from './lib/utils'
 import {
   ChevronRight, RotateCw, Home, Star, StarOff, Code2, ExternalLink,

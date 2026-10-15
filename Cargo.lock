@@ -159,7 +159,7 @@ dependencies = [
  "tokio",
  "tracing",
  "url",
- "zem-addon-sdk",
+ "zem-addon-sdk 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -1825,6 +1825,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "zem-addon-protocol"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ffe6f1a14b817a06c0a35949d106271cdfda858c844829d4aa68c0a9b4290fa9"
+dependencies = [
+ "anyhow",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "zem-addon-sdk"
 version = "0.1.0"
 dependencies = [
@@ -1837,7 +1849,25 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
- "zem-addon-protocol",
+ "zem-addon-protocol 0.1.0",
+]
+
+[[package]]
+name = "zem-addon-sdk"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8412f06d91be15eb1086fd1c4cb160c3c6847ce614502ea3374b6b795b6d63b5"
+dependencies = [
+ "anyhow",
+ "base64 0.22.1",
+ "futures-util",
+ "libc",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "zem-addon-protocol 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

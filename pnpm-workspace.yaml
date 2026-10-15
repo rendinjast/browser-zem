@@ -4,3 +4,6 @@ packages:
   - "browser-pane"
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@zem-sh/keybinding@0.1.0'
+  - '@zem-sh/pane@0.1.0'
