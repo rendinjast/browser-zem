@@ -25,7 +25,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Build addon
-        run: cargo build --release -p browser-addon
+        run: cd browser cargo build --release -p browser-addoncargo build --release -p browser-addon cargo build --release
       - name: Package platform asset
         run: cp target/release/addon browser-macos
       - name: Generate addon manifest
@@ -46,7 +46,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Build addon
-        run: cargo build --release -p browser-addon
+        run: cd browser cargo build --release -p browser-addoncargo build --release -p browser-addon cargo build --release
       - name: Package platform asset
         run: cp target/release/addon browser-linux
       - uses: actions/upload-artifact@v4
