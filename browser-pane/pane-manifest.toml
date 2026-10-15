@@ -1,0 +1,12 @@
+id          = "zem.browser-pane"
+name        = "browser-pane"
+version     = "0.1.0"
+description = "Browser webview pane with history, bookmarks and devtools"
+author      = "rendinjast"
+
+[[pane]]
+kind        = "browser"
+title       = "Browser"
+icon        = "nerd:globe"
+description = "Browse the web with history, bookmarks and an embedded devtools drawer"
+entry       = "./index.js"

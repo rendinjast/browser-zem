@@ -1,0 +1,110 @@
+# Builds the server addon (per platform) + the web pane bundle and publishes
+# a GitHub Release whose assets are consumed by zem's installers:
+#
+#   zem addon install <owner>/<repo>          → needs: browser-<os>, zem-addon-manifest.toml
+#   POST /api/extension/install {"source": …} → needs: pane-manifest.toml, index.js
+#
+# Asset upload ORDER MATTERS: the server infers the addon name from the FIRST
+# release asset (name before the last '-'), so the platform binaries must be
+# uploaded first (browser-macos → "browser"), before the two manifest files
+# (zem-addon-manifest.toml → "zem-addon", pane-manifest.toml → "pane").
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  addon-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build addon
+        run: cargo build --release -p browser-addon
+      - name: Package platform asset
+        run: cp target/release/addon browser-macos
+      - name: Generate addon manifest
+        run: ./browser-macos --generate-manifest > zem-addon-manifest.toml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: browser-macos
+          path: browser-macos
+      - uses: actions/upload-artifact@v4
+        with:
+          name: addon-manifest
+          path: zem-addon-manifest.toml
+
+  addon-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build addon
+        run: cargo build --release -p browser-addon
+      - name: Package platform asset
+        run: cp target/release/addon browser-linux
+      - uses: actions/upload-artifact@v4
+        with:
+          name: browser-linux
+          path: browser-linux
+
+  pane:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Build pane bundle
+        run: pnpm build
+      - name: Collect extension assets
+        run: |
+          mkdir -p ext-assets
+          cp browser-pane/dist/index.js ext-assets/index.js
+          cp browser-pane/pane-manifest.toml ext-assets/pane-manifest.toml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pane-extension
+          path: ext-assets/
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [addon-macos, addon-linux, pane]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+      - name: Sanity check assets
+        run: |
+          ls -la assets/
+          # upload-artifact does not preserve the executable bit; zem's
+          # installer chmods the binary after download anyway.
+          test -f assets/browser-macos
+          test -f assets/browser-linux
+          test -s assets/zem-addon-manifest.toml
+          test -s assets/pane-manifest.toml
+          test -s assets/index.js
+      - name: Create release and upload assets in order
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="$GITHUB_REF_NAME"
+          gh release create "$TAG" --draft --title "$TAG" --generate-notes
+          # ORDER MATTERS — platform binaries first (addon name inference),
+          # then the addon manifest, then the pane extension files.
+          for f in browser-macos browser-linux zem-addon-manifest.toml pane-manifest.toml index.js; do
+            gh release upload "$TAG" "assets/$f"
+          done
+          gh release edit "$TAG" --draft=false

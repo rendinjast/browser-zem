@@ -1,0 +1,19 @@
+[package]
+name = "browser-addon"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "addon"
+path = "src/main.rs"
+
+[dependencies]
+zem-addon-sdk = { path = "../crates/zem-addon-sdk" }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tracing = "0.1"
+reqwest = { version = "0.12", features = ["json", "gzip", "brotli", "deflate"] }
+axum = { version = "0.8", features = ["http1"] }
+regex = "1"
+url = "2"

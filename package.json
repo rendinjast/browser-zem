@@ -1,0 +1,11 @@
+{
+  "name": "browser-zem",
+  "private": true,
+  "description": "Zem browser addon — server addon + web pane extension",
+  "scripts": {
+    "build": "pnpm build:pane",
+    "build:pane": "pnpm --filter @zem/browser-pane build",
+    "build:addon": "cargo build --release -p browser-addon",
+    "dev:pane": "pnpm --filter @zem/browser-pane dev"
+  }
+}

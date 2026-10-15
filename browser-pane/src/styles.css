@@ -1,0 +1,40 @@
+@import 'tailwindcss';
+
+.browser-pane-root {
+  font-family: inherit;
+  background: var(--background, #0d0d0f);
+}
+
+.browser-badge {
+  line-height: 14px;
+}
+
+.browser-loading-bar {
+  animation: browser-loading 1s ease-in-out infinite;
+}
+@keyframes browser-loading {
+  0% { width: 0%; margin-left: 0; }
+  50% { width: 60%; margin-left: 20%; }
+  100% { width: 0%; margin-left: 100%; }
+}
+
+.browser-devtools {
+  height: 34%;
+  min-height: 140px;
+  max-height: 55%;
+}
+
+.browser-devtools-body {
+  flex: 1;
+  min-height: 0;
+  scrollbar-width: thin;
+}
+
+.browser-devtab {
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.browser-log-row:hover {
+  background: color-mix(in srgb, var(--accent, #6366f1) 5%, transparent);
+}

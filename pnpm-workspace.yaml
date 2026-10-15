@@ -1,0 +1,6 @@
+packages:
+  - "keybinding"
+  - "pane"
+  - "browser-pane"
+allowBuilds:
+  esbuild: true
