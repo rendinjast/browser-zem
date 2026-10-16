@@ -5,7 +5,7 @@ edition = "2021"
 
 [[bin]]
 name = "addon"
-path = "src/main.rs"
+path = "lib/main.rs"
 
 [dependencies]
 zem-addon-sdk = "0.1.0"

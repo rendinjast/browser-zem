@@ -1,5 +1,3 @@
-packages:
-  - browser-pane
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:

@@ -1,11 +1,50 @@
 {
   "name": "browser-zem",
+  "version": "0.1.0",
   "private": true,
   "description": "Zem browser addon — server addon + web pane extension",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "pnpm build:pane",
-    "build:pane": "pnpm --filter @zem/browser-pane build",
-    "build:addon": "cargo build --release -p browser-addon",
-    "dev:pane": "pnpm --filter @zem/browser-pane dev"
+    "build:pane": "vite build && tsc --emitDeclarationOnly",
+    "build:addon": "cargo build --release",
+    "dev": "vite build --watch",
+    "dev:pane": "vite build --watch"
+  },
+  "dependencies": {
+    "@zem-sh/pane": "^0.1.0",
+    "lucide-react": "^1.16.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@base-ui/react": "^1.4.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.0",
+    "tailwind-merge": "^3.6.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "tailwindcss": "^4.3.0",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.0.4"
   }
 }

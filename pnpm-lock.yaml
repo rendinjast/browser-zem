@@ -6,9 +6,7 @@ settings:
 
 importers:
 
-  .: {}
-
-  browser-pane:
+  .:
     dependencies:
       '@zem-sh/pane':
         specifier: ^0.1.0

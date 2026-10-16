@@ -25,9 +25,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Build addon
-        run: cd browser && cargo build --release
+        run: cargo build --release
       - name: Package platform asset
-        run: cp browser/target/release/addon browser-macos
+        run: cp target/release/addon browser-macos
       - name: Generate addon manifest
         run: ./browser-macos --generate-manifest > zem-addon-manifest.toml
       - uses: actions/upload-artifact@v4
@@ -46,9 +46,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Build addon
-        run: cd browser && cargo build --release
+        run: cargo build --release
       - name: Package platform asset
-        run: cp browser/target/release/addon browser-linux
+        run: cp target/release/addon browser-linux
       - uses: actions/upload-artifact@v4
         with:
           name: browser-linux
@@ -71,8 +71,8 @@ jobs:
       - name: Collect extension assets
         run: |
           mkdir -p ext-assets
-          cp browser-pane/dist/index.js ext-assets/index.js
-          cp browser-pane/pane-manifest.toml ext-assets/pane-manifest.toml
+          cp dist/index.js ext-assets/index.js
+          cp pane-manifest.toml ext-assets/pane-manifest.toml
       - uses: actions/upload-artifact@v4
         with:
           name: pane-extension

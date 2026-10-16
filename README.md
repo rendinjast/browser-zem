@@ -6,8 +6,8 @@ pieces:
 
 | Piece | What it does | Installed by |
 | --- | --- | --- |
-| `browser/` — **server addon** (`com.rendinjast.browser`) | Embedded HTTP proxy, navigation state, bookmarks, actions | `zem addon install` → GitHub release |
-| `browser-pane/` — **web extension** (`zem.browser-pane`) | The pane UI bundle served to the web client | `POST /api/extension/install` → GitHub release |
+| `lib/` + `Cargo.toml` — **server addon** (`com.rendinjast.browser`) | Embedded HTTP proxy, navigation state, bookmarks, actions | `zem addon install` → GitHub release |
+| `src/` + `package.json` — **web extension** (`zem.browser-pane`) | The pane UI bundle served to the web client | `POST /api/extension/install` → GitHub release |
 
 Both are published from **one GitHub Release** of this repo.
 
@@ -15,28 +15,28 @@ Both are published from **one GitHub Release** of this repo.
 
 ```
 browser-zem/
-├── browser/                 Rust server addon (binary name: addon)
-├── browser-pane/            Vite/React pane bundle + pane-manifest.toml
-├── crates/
-│   ├── zem-addon-sdk/       vendored from the zem monorepo
-│   └── zem-addon-protocol/  vendored from the zem monorepo
-├── pane/                    vendored @zem/pane (types/runtime contract)
-├── keybinding/              vendored @zem/keybinding
-└── .github/workflows/       release pipeline
+├── lib/                    Rust addon sources (main.rs, pane.rs, proxy.rs, bridge.js)
+├── src/                    Vite/React pane sources (index.tsx, …)
+├── Cargo.toml              Rust package manifest (binary: addon)
+├── package.json            JS package manifest (pane bundle)
+├── pane-manifest.toml      extension install manifest
+├── vite.config.ts
+├── tsconfig.json
+└── .github/workflows/      release pipeline
 ```
 
-The `crates/`, `pane/` and `keybinding/` packages are **vendored copies** of
-packages from the zem monorepo (they are not published to crates.io or npm).
-When the zem monorepo changes those packages, copy the changes over manually.
+The zem monorepo packages this repo depends on (`zem-addon-sdk`,
+`zem-addon-protocol`, `@zem-sh/pane`, `@zem-sh/keybinding`) are consumed as
+regular registry dependencies.
 
 ## Build
 
 ```sh
 # server addon (release binary at target/release/addon)
-cargo build --release -p browser-addon
-cargo test -p browser-addon
+cargo build --release
+cargo test
 
-# web pane bundle (browser-pane/dist/index.js)
+# web pane bundle (dist/index.js)
 pnpm install
 pnpm build
 ```
