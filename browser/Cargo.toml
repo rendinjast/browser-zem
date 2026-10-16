@@ -9,7 +9,7 @@ path = "src/main.rs"
 
 [dependencies]
 zem-addon-sdk = "0.1.0"
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1", features = ["rt-multi-thread", "net", "macros", "io-util"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tracing = "0.1"
@@ -17,3 +17,10 @@ reqwest = { version = "0.12", features = ["json", "gzip", "brotli", "deflate"] }
 axum = { version = "0.8", features = ["http1"] }
 regex = "1"
 url = "2"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
+opt-level = "s"
