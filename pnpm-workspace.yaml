@@ -2,3 +2,7 @@ packages:
   - browser-pane
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - "@zem-sh/keybinding@*"
+  - "@zem-sh/pane@*"
+  - "baseline-browser-mapping@*"
