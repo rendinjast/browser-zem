@@ -3,6 +3,6 @@ packages:
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - "@zem-sh/keybinding@*"
-  - "@zem-sh/pane@*"
-  - "baseline-browser-mapping@*"
+  - "@zem-sh/keybinding@0.1.0"
+  - "@zem-sh/pane@0.1.0"
+  - "baseline-browser-mapping@2.11.29"
